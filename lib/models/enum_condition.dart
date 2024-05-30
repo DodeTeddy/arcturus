@@ -1,0 +1,1 @@
+enum Condition { success, failed }
