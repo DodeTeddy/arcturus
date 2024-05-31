@@ -1,3 +1,4 @@
+import 'package:arcturus_mobile_app/features/dashboard/providers/dashboard_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
@@ -63,6 +64,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (context) => AddTransportProvider()),
         ChangeNotifierProvider(create: (context) => PaymentProvider()),
         ChangeNotifierProvider(create: (context) => SettingProvider()),
+        ChangeNotifierProvider(create: (context) => DashboardProvider()),
       ],
       child: MaterialApp(
         title: 'Arcturus Mobile App',

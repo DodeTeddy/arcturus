@@ -12,27 +12,36 @@ class InfoItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Row(
-          children: [
-            icon,
-            Text(
-              label,
-              style: TextStyle(
-                fontSize: Responsive.width(context, 5),
-                fontWeight: FontWeight.bold,
-                color: color,
+        SizedBox(
+          width: Responsive.width(context, 40),
+          child: Row(
+            children: [
+              icon,
+              Expanded(
+                child: Text(
+                  label,
+                  style: TextStyle(
+                    fontSize: Responsive.width(context, 5),
+                    fontWeight: FontWeight.bold,
+                    color: color,
+                  ),
+                  overflow: TextOverflow.ellipsis,
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
-        Text(
-          value,
-          style: TextStyle(
-            fontSize: Responsive.width(context, 5),
-            fontWeight: FontWeight.bold,
-            color: color,
+        Expanded(
+          child: Text(
+            value,
+            style: TextStyle(
+              fontSize: Responsive.width(context, 5),
+              fontWeight: FontWeight.bold,
+              color: color,
+            ),
+            overflow: TextOverflow.ellipsis,
+            textAlign: TextAlign.end,
           ),
         ),
       ],

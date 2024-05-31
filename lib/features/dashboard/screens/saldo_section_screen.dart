@@ -1,5 +1,7 @@
+import 'package:arcturus_mobile_app/features/dashboard/providers/dashboard_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:provider/provider.dart';
 
 import '../../../constants/color.dart';
 import '../../../utils/currency_format.dart';
@@ -10,6 +12,7 @@ class SaldoSectionScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var data = context.watch<DashboardProvider>();
     return Container(
       padding: const EdgeInsets.all(15),
       margin: EdgeInsets.symmetric(horizontal: Responsive.width(context, 3)),
@@ -38,14 +41,23 @@ class SaldoSectionScreen extends StatelessWidget {
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              Text(
-                CurrencyFormat.convertToIdr(123456),
-                style: TextStyle(
-                  fontSize: Responsive.width(context, 5),
-                  fontWeight: FontWeight.bold,
-                  color: Theme.of(context).colorScheme.primary,
-                ),
-              ),
+              data.isLoading
+                  ? Text(
+                      'Loading...',
+                      style: TextStyle(
+                        fontSize: Responsive.width(context, 5),
+                        fontWeight: FontWeight.bold,
+                        color: Theme.of(context).colorScheme.primary,
+                      ),
+                    )
+                  : Text(
+                      CurrencyFormat.convertToIdr(double.parse(!data.isLoading && data.data.data != null ? data.data.data!.data.saldo! : '0')),
+                      style: TextStyle(
+                        fontSize: Responsive.width(context, 5),
+                        fontWeight: FontWeight.bold,
+                        color: Theme.of(context).colorScheme.primary,
+                      ),
+                    ),
             ],
           ),
           GestureDetector(

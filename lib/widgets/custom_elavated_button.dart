@@ -8,6 +8,7 @@ class CustomElevatedButton extends StatelessWidget {
   final double? width;
   final bool isLoading;
   final String text;
+  final Color? color;
   const CustomElevatedButton({
     super.key,
     required this.onPressed,
@@ -15,6 +16,7 @@ class CustomElevatedButton extends StatelessWidget {
     this.width,
     this.isLoading = false,
     required this.text,
+    this.color,
   });
 
   @override
@@ -23,6 +25,7 @@ class CustomElevatedButton extends StatelessWidget {
       height: height,
       width: width,
       child: ElevatedButton(
+        style: ButtonStyle(backgroundColor: WidgetStatePropertyAll(color)),
         onPressed: onPressed,
         child: isLoading
             ? SizedBox(
