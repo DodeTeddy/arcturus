@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 
 import '../models/update_profile_request_body.dart';
 import '../../../utils/interceptors.dart';
@@ -74,6 +75,7 @@ class SettingProvider with ChangeNotifier {
   late ResponseModel<String?> dataUpdatePost;
 
   updateProfile(UpdateProfileRequestBody requestBody) async {
+    log(updateProfileRequestBody(requestBody));
     isLoadingUpdatePost = true;
     notifyListeners();
 

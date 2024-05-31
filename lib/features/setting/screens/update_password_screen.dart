@@ -106,6 +106,22 @@ class _UpdatePasswordScreenState extends State<UpdatePasswordScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        leading: GestureDetector(
+          onTap: () => Navigator.pop(context),
+          child: const Icon(
+            Iconsax.arrow_left_2,
+            color: kWhiteColor,
+          ),
+        ),
+        title: Text(
+          'Update Password',
+          style: TextStyle(
+            fontSize: Responsive.width(context, 5),
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+      ),
       body: SafeArea(
         child: SingleChildScrollView(
           child: Padding(

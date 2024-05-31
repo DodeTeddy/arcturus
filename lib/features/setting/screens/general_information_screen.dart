@@ -212,7 +212,6 @@ class _GeneralInformationScreenState extends State<GeneralInformationScreen> {
                             InputTextFormField(
                               label: 'Address Line 2',
                               controller: _addressTwoController,
-                              validator: (value) => validator(value),
                             ),
                             SizedBox(height: Responsive.height(context, 1)),
                             InputTextFormField(

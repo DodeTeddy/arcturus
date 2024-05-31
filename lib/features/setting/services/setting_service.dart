@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'dart:developer';
 
-import '../models/update_profile_request_body.dart';
 import 'package:http/http.dart' as http;
 
 import '../../../constants/url.dart';
@@ -9,6 +8,7 @@ import '../../../models/enum_response_message.dart';
 import '../../../models/response_model.dart';
 import '../../../utils/headers_http.dart';
 import '../models/profile_model.dart';
+import '../models/update_profile_request_body.dart';
 
 class SettingService {
   Future<ResponseModel<String?>> signOut() async {
@@ -103,8 +103,6 @@ class SettingService {
 
       int? statusCode = response.statusCode;
 
-      log(response.body);
-
       if (statusCode == 200) {
         ProfileModel data = profileModelFromJson(response.body);
         ResponseModel<ProfileModel> responseData = ResponseModel(
@@ -141,19 +139,12 @@ class SettingService {
       final response = await http.post(
         url,
         headers: await headers(withAuth: true),
-        body: jsonEncode(
-          updateProfileRequestBody(requestBody),
-        ),
+        body: updateProfileRequestBody(requestBody),
       );
 
       int? statusCode = response.statusCode;
 
       log(response.body);
-      log(
-        jsonEncode(
-          updateProfileRequestBody(requestBody),
-        ),
-      );
 
       if (statusCode == 200) {
         ResponseModel<String> responseData = ResponseModel(
