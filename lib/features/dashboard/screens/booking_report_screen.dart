@@ -64,6 +64,18 @@ class BookingReportScreen extends StatelessWidget {
                         String status =
                             !data.isLoading && data.data.data != null ? data.data.data!.getbooking[index].bookingStatus!.toUpperCase() : '';
 
+                        List<bool> transport = [];
+
+                        if (!data.isLoading && data.data.data != null) {
+                          for (var j = 0; j < data.data.data!.transport.length; j++) {
+                            if (data.data.data!.getbooking[index].id == int.parse(data.data.data!.transport[j].bookingId!)) {
+                              transport.add(true);
+                            } else {
+                              transport.add(false);
+                            }
+                          }
+                        }
+
                         return BookingReportItem(
                           item: [
                             ItemModel(
@@ -97,9 +109,9 @@ class BookingReportScreen extends StatelessWidget {
                               itemValue: !data.isLoading && data.data.data != null
                                   ? CurrencyFormat.convertToIdr(
                                       (double.parse(data.data.data!.getbooking[index].price!) +
-                                          double.parse(data.data.data!.transport.isNotEmpty
+                                          double.parse(transport.any((value) => value == true)
                                               ? data.data.data!.transport
-                                                  .firstWhere((value) => int.parse(value.bookingId!) == data.data.data!.getbooking[index].id!)
+                                                  .firstWhere((value) => int.parse(value.bookingId!) == data.data.data!.getbooking[index].id)
                                                   .totalPrice!
                                               : '0')),
                                     )

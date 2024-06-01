@@ -169,7 +169,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                           if (double.parse(payment.isLoadingSaldo ? '0' : payment.saldo.data!.data.saldo) <
                               double.parse(payment.isLoadingTotal ? '0' : payment.totalPayment.data!.booking.price))
                             CustomElevatedButton(
-                              onPressed: () {},
+                              onPressed: () => Navigator.pushNamedAndRemoveUntil(context, topUpScreen, (route) => false),
                               text: 'Top Up',
                             ),
                           if (double.parse(payment.isLoadingSaldo ? '0' : payment.saldo.data!.data.saldo) >

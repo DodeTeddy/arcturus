@@ -1,4 +1,5 @@
 import 'package:arcturus_mobile_app/features/dashboard/providers/dashboard_provider.dart';
+import 'package:arcturus_mobile_app/routes/route.dart';
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:provider/provider.dart';
@@ -61,7 +62,11 @@ class SaldoSectionScreen extends StatelessWidget {
             ],
           ),
           GestureDetector(
-            onTap: () {},
+            onTap: () => Navigator.pushNamedAndRemoveUntil(
+              context,
+              topUpScreen,
+              (route) => false,
+            ),
             child: Column(
               children: [
                 Icon(Iconsax.wallet_1, color: Theme.of(context).colorScheme.primary),

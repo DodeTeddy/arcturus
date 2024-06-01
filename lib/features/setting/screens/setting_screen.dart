@@ -27,6 +27,7 @@ class SettingScreen extends StatelessWidget {
 
     void signOut() {
       showDialog(
+        barrierDismissible: context.read<SettingProvider>().isLoading ? false : true,
         context: context,
         builder: (context) {
           return AlertDialog(

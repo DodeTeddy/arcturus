@@ -1,3 +1,5 @@
+import 'package:arcturus_mobile_app/features/top_up/screens/top_screen.dart';
+
 import '../features/setting/screens/bank_account_screen.dart';
 import '../features/setting/screens/general_information_screen.dart';
 import '../features/setting/screens/update_password_screen.dart';
@@ -42,6 +44,8 @@ Route onGenerateRoute(RouteSettings settings) {
       return MaterialPageRoute(builder: (context) => const GeneralInformationScreen());
     case bankAccountScreen:
       return MaterialPageRoute(builder: (context) => const BankAccountScreen());
+    case topUpScreen:
+      return MaterialPageRoute(builder: (context) => const TopUpScreen());
     default:
       return MaterialPageRoute(builder: (context) => const NotFoundWidget());
   }
