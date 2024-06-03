@@ -1,14 +1,12 @@
 import 'dart:async';
-import 'dart:developer';
 
-import '../models/update_profile_request_body.dart';
-import '../../../utils/interceptors.dart';
-
-import '../models/profile_model.dart';
-import '../services/setting_service.dart';
 import 'package:flutter/material.dart';
 
 import '../../../models/response_model.dart';
+import '../../../utils/interceptors.dart';
+import '../models/profile_model.dart';
+import '../models/update_profile_request_body.dart';
+import '../services/setting_service.dart';
 
 class SettingProvider with ChangeNotifier {
   bool isLoading = false;
@@ -75,7 +73,6 @@ class SettingProvider with ChangeNotifier {
   late ResponseModel<String?> dataUpdatePost;
 
   updateProfile(UpdateProfileRequestBody requestBody) async {
-    log(updateProfileRequestBody(requestBody));
     isLoadingUpdatePost = true;
     notifyListeners();
 

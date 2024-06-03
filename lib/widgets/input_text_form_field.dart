@@ -5,12 +5,14 @@ class InputTextFormField extends StatelessWidget {
   final TextEditingController controller;
   final String? Function(String?)? validator;
   final TextInputType? keyboardType;
+  final bool readOnly;
   const InputTextFormField({
     super.key,
     required this.label,
     required this.controller,
     this.validator,
     this.keyboardType,
+    this.readOnly = false,
   });
 
   @override
@@ -20,6 +22,7 @@ class InputTextFormField extends StatelessWidget {
       children: [
         Text(label),
         TextFormField(
+          readOnly: readOnly,
           keyboardType: keyboardType,
           controller: controller,
           autovalidateMode: AutovalidateMode.onUserInteraction,

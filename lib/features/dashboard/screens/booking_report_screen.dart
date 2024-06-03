@@ -58,112 +58,137 @@ class BookingReportScreen extends StatelessWidget {
                   ),
                   const Divider(color: kGreyColor),
                   Expanded(
-                    child: ListView.builder(
-                      itemCount: !data.isLoading && data.data.data != null ? data.data.data!.getbooking.length : 0,
-                      itemBuilder: (context, index) {
-                        String status =
-                            !data.isLoading && data.data.data != null ? data.data.data!.getbooking[index].bookingStatus!.toUpperCase() : '';
+                    child: !data.isLoading && data.data.data != null
+                        ? data.data.data!.getbooking.isNotEmpty
+                            ? ListView.builder(
+                                itemCount: !data.isLoading && data.data.data != null ? data.data.data!.getbooking.length : 0,
+                                itemBuilder: (context, index) {
+                                  String status =
+                                      !data.isLoading && data.data.data != null ? data.data.data!.getbooking[index].bookingStatus!.toUpperCase() : '';
 
-                        List<bool> transport = [];
+                                  List<bool> transport = [];
 
-                        if (!data.isLoading && data.data.data != null) {
-                          for (var j = 0; j < data.data.data!.transport.length; j++) {
-                            if (data.data.data!.getbooking[index].id == int.parse(data.data.data!.transport[j].bookingId!)) {
-                              transport.add(true);
-                            } else {
-                              transport.add(false);
-                            }
-                          }
-                        }
+                                  if (!data.isLoading && data.data.data != null) {
+                                    for (var j = 0; j < data.data.data!.transport.length; j++) {
+                                      if (data.data.data!.getbooking[index].id == int.parse(data.data.data!.transport[j].bookingId!)) {
+                                        transport.add(true);
+                                      } else {
+                                        transport.add(false);
+                                      }
+                                    }
+                                  }
 
-                        return BookingReportItem(
-                          item: [
-                            ItemModel(
-                              item: 'Hotel Name',
-                              itemValue: !data.isLoading && data.data.data != null ? data.data.data!.getbooking[index].vendor.vendorName! : '-',
-                            ),
-                            ItemModel(
-                              item: 'Booking Date',
-                              itemValue: !data.isLoading && data.data.data != null
-                                  ? data.data.data!.getbooking[index].bookingDate.toString().split(" ")[0]
-                                  : '-',
-                            ),
-                            ItemModel(
-                              item: 'CheckIn Date',
-                              itemValue: !data.isLoading && data.data.data != null
-                                  ? data.data.data!.getbooking[index].checkinDate.toString().split(" ")[0]
-                                  : '-',
-                            ),
-                            ItemModel(
-                              item: 'CheckOut Date',
-                              itemValue: !data.isLoading && data.data.data != null
-                                  ? data.data.data!.getbooking[index].checkoutDate.toString().split(" ")[0]
-                                  : '-',
-                            ),
-                            ItemModel(
-                              item: 'Nights',
-                              itemValue: !data.isLoading && data.data.data != null ? data.data.data!.getbooking[index].night! : '-',
-                            ),
-                            ItemModel(
-                              item: 'Nights',
-                              itemValue: !data.isLoading && data.data.data != null
-                                  ? CurrencyFormat.convertToIdr(
-                                      (double.parse(data.data.data!.getbooking[index].price!) +
-                                          double.parse(transport.any((value) => value == true)
-                                              ? data.data.data!.transport
-                                                  .firstWhere((value) => int.parse(value.bookingId!) == data.data.data!.getbooking[index].id)
-                                                  .totalPrice!
-                                              : '0')),
-                                    )
-                                  : '-',
-                            ),
-                          ],
-                          children: Column(
-                            children: [
-                              Container(
-                                margin: EdgeInsets.symmetric(vertical: Responsive.height(context, 1)),
-                                padding: EdgeInsets.symmetric(vertical: Responsive.height(context, 1)),
-                                width: double.infinity,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(50),
-                                  border: Border.all(color: status == 'PAID' ? kGreenColor : kRedColor),
-                                ),
-                                child: Center(
-                                  child: Text(
-                                    status,
-                                    style: TextStyle(
-                                      color: status == 'PAID' ? kGreenColor : kRedColor,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: [
-                                  CustomElevatedButton(
-                                    onPressed: () {},
-                                    text: 'Booking Detail',
-                                  ),
-                                  status == 'PAID'
-                                      ? const SizedBox()
-                                      : CustomElevatedButton(
-                                          color: kGreenColor,
-                                          onPressed: () => Navigator.pushNamedAndRemoveUntil(
-                                            context,
-                                            paymentScreen,
-                                            (route) => false,
-                                            arguments: !data.isLoading && data.data.data != null ? data.data.data!.getbooking[index].id! : null,
+                                  return BookingReportItem(
+                                    item: [
+                                      ItemModel(
+                                        item: 'Hotel Name',
+                                        itemValue:
+                                            !data.isLoading && data.data.data != null ? data.data.data!.getbooking[index].vendor.vendorName! : '-',
+                                      ),
+                                      ItemModel(
+                                        item: 'Booking Date',
+                                        itemValue: !data.isLoading && data.data.data != null
+                                            ? data.data.data!.getbooking[index].bookingDate.toString().split(" ")[0]
+                                            : '-',
+                                      ),
+                                      ItemModel(
+                                        item: 'CheckIn Date',
+                                        itemValue: !data.isLoading && data.data.data != null
+                                            ? data.data.data!.getbooking[index].checkinDate.toString().split(" ")[0]
+                                            : '-',
+                                      ),
+                                      ItemModel(
+                                        item: 'CheckOut Date',
+                                        itemValue: !data.isLoading && data.data.data != null
+                                            ? data.data.data!.getbooking[index].checkoutDate.toString().split(" ")[0]
+                                            : '-',
+                                      ),
+                                      ItemModel(
+                                        item: 'Nights',
+                                        itemValue: !data.isLoading && data.data.data != null ? data.data.data!.getbooking[index].night! : '-',
+                                      ),
+                                      ItemModel(
+                                        item: 'Nights',
+                                        itemValue: !data.isLoading && data.data.data != null
+                                            ? CurrencyFormat.convertToIdr(
+                                                (double.parse(data.data.data!.getbooking[index].price!) +
+                                                    double.parse(transport.any((value) => value == true)
+                                                        ? data.data.data!.transport
+                                                            .firstWhere(
+                                                                (value) => int.parse(value.bookingId!) == data.data.data!.getbooking[index].id)
+                                                            .totalPrice!
+                                                        : '0')),
+                                              )
+                                            : '-',
+                                      ),
+                                    ],
+                                    children: Column(
+                                      children: [
+                                        Container(
+                                          margin: EdgeInsets.symmetric(vertical: Responsive.height(context, 1)),
+                                          padding: EdgeInsets.symmetric(vertical: Responsive.height(context, 1)),
+                                          width: double.infinity,
+                                          decoration: BoxDecoration(
+                                            borderRadius: BorderRadius.circular(50),
+                                            border: Border.all(color: status == 'PAID' ? kGreenColor : kRedColor),
                                           ),
-                                          text: 'Pay',
-                                        )
-                                ],
+                                          child: Center(
+                                            child: Text(
+                                              status,
+                                              style: TextStyle(
+                                                color: status == 'PAID' ? kGreenColor : kRedColor,
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                        Row(
+                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            CustomElevatedButton(
+                                              onPressed: () {},
+                                              text: 'Booking Detail',
+                                            ),
+                                            status == 'PAID'
+                                                ? const SizedBox()
+                                                : CustomElevatedButton(
+                                                    color: kGreenColor,
+                                                    onPressed: () => Navigator.pushNamedAndRemoveUntil(
+                                                      context,
+                                                      paymentScreen,
+                                                      (route) => false,
+                                                      arguments:
+                                                          !data.isLoading && data.data.data != null ? data.data.data!.getbooking[index].id! : null,
+                                                    ),
+                                                    text: 'Pay',
+                                                  )
+                                          ],
+                                        ),
+                                      ],
+                                    ),
+                                  );
+                                },
+                              )
+                            : Center(
+                                child: Text(
+                                  'Data Report is Empty!',
+                                  style: TextStyle(
+                                    color: Theme.of(context).colorScheme.primary,
+                                    fontSize: Responsive.width(context, 5),
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              )
+                        : Center(
+                            child: Text(
+                              'Data Report is Empty!',
+                              style: TextStyle(
+                                color: Theme.of(context).colorScheme.primary,
+                                fontSize: Responsive.width(context, 5),
+                                fontWeight: FontWeight.bold,
                               ),
-                            ],
+                            ),
                           ),
-                        );
-                      },
-                    ),
                   ),
                 ],
               ),

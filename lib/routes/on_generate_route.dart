@@ -1,4 +1,6 @@
-import 'package:arcturus_mobile_app/features/top_up/screens/top_screen.dart';
+import 'package:arcturus_mobile_app/features/top_up/models/top_up_model.dart';
+import 'package:arcturus_mobile_app/features/top_up/screens/top_up_history_screen.dart';
+import 'package:arcturus_mobile_app/features/top_up/screens/top_up_screen.dart';
 
 import '../features/setting/screens/bank_account_screen.dart';
 import '../features/setting/screens/general_information_screen.dart';
@@ -46,6 +48,9 @@ Route onGenerateRoute(RouteSettings settings) {
       return MaterialPageRoute(builder: (context) => const BankAccountScreen());
     case topUpScreen:
       return MaterialPageRoute(builder: (context) => const TopUpScreen());
+    case topUpHistoryScreen:
+      final List<History> data = settings.arguments as List<History>;
+      return MaterialPageRoute(builder: (context) => TopUpHistoryScreen(data: data));
     default:
       return MaterialPageRoute(builder: (context) => const NotFoundWidget());
   }

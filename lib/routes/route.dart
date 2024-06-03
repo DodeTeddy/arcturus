@@ -10,3 +10,4 @@ const String updatePasswordScreen = '/update_password';
 const String generalInformationScreen = '/general_information';
 const String bankAccountScreen = '/bank_account';
 const String topUpScreen = '/top_up';
+const String topUpHistoryScreen = '/top_up_history';

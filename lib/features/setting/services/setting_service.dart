@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:developer';
 
 import 'package:http/http.dart' as http;
 
@@ -143,8 +142,6 @@ class SettingService {
       );
 
       int? statusCode = response.statusCode;
-
-      log(response.body);
 
       if (statusCode == 200) {
         ResponseModel<String> responseData = ResponseModel(
