@@ -9,6 +9,7 @@ import 'package:provider/provider.dart';
 
 import '../../../constants/color.dart';
 import '../../../utils/responsive.dart';
+import '../../account_not_active/providers/launch_url_provider.dart';
 
 class BookingReportScreen extends StatelessWidget {
   const BookingReportScreen({super.key});
@@ -16,6 +17,39 @@ class BookingReportScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var data = context.watch<DashboardProvider>();
+    bool isLoading = context.watch<LaunchUrlProvider>().isLoading;
+    var launchUrl = context.read<LaunchUrlProvider>().launchEmailUrl;
+
+    bookingDetail(int? id) {
+      showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            content: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(
+                  'For booking details, you will be directed to the Arcturus website',
+                  style: TextStyle(
+                    fontSize: Responsive.width(context, 4),
+                  ),
+                ),
+              ],
+            ),
+            actions: [
+              CustomElevatedButton(
+                isLoading: isLoading,
+                onPressed: () {
+                  final Uri url = Uri.parse('https://arcturusdemo.online/agent/bookinghistory/detail/$id');
+                  launchUrl(url, context);
+                },
+                text: 'Oke',
+              ),
+            ],
+          );
+        },
+      );
+    }
 
     return Expanded(
       child: Container(
@@ -146,7 +180,8 @@ class BookingReportScreen extends StatelessWidget {
                                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                           children: [
                                             CustomElevatedButton(
-                                              onPressed: () {},
+                                              onPressed: () => bookingDetail(
+                                                  !data.isLoading && data.data.data != null ? data.data.data!.getbooking[index].id! : null),
                                               text: 'Booking Detail',
                                             ),
                                             status == 'PAID'
