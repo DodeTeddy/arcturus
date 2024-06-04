@@ -21,7 +21,7 @@ void checkSignOutProgress(BuildContext context) {
   context.read<NavBarProvider>().onResetPageIndex();
 }
 
-void interceptor(BuildContext context) {
+void interceptor(BuildContext context, {bool isLogout = false}) {
   showDialog(
     barrierDismissible: false,
     context: context,
@@ -32,7 +32,7 @@ void interceptor(BuildContext context) {
           children: [
             Image.asset(errorVector, width: Responsive.width(context, 30)),
             Text(
-              'Your session has expired',
+              isLogout ? 'Are you sure?' : 'Your session has expired',
               style: TextStyle(
                 fontSize: Responsive.width(context, 4),
               ),

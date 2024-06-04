@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:arcturus_mobile_app/utils/interceptors.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -114,6 +115,10 @@ class AccountNotActiveScreen extends StatelessWidget {
                       isLoading: activationStatusIsLoading,
                       onPressed: onPressedCheckActivation,
                       text: 'Check activation status',
+                    ),
+                    TextButton.icon(
+                      onPressed: () => interceptor(context, isLogout: true),
+                      label: const Text('Log Out'),
                     ),
                   ],
                 ),
