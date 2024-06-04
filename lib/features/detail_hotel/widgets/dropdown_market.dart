@@ -31,15 +31,19 @@ class _DropdownMarketState extends State<DropdownMarket> {
           ),
         )
         .toList();
+
     return DropdownButtonFormField<String>(
       value: context.watch<FilterSectionProvider>().country.isNotEmpty ? context.watch<FilterSectionProvider>().country : null,
       hint: data.isLoading
           ? const Text('Loading...')
-          : data.data.message == ResponseMessage.error || data.data.message == ResponseMessage.errorCatch
-              ? Text('Error ${data.data.statusCode}')
-              : null,
+          : !data.isLoading
+              ? const Text('WORLDWIDE')
+              : data.data.message == ResponseMessage.error || data.data.message == ResponseMessage.errorCatch
+                  ? Text('Error ${data.data.statusCode}')
+                  : null,
       items: data.isLoading || data.data.message == ResponseMessage.error || data.data.message == ResponseMessage.errorCatch ? [] : items,
-      onChanged: data.isLoading || data.data.message == ResponseMessage.error || data.data.message == ResponseMessage.errorCatch ? null : widget.onChanged,
+      onChanged:
+          data.isLoading || data.data.message == ResponseMessage.error || data.data.message == ResponseMessage.errorCatch ? null : widget.onChanged,
       autovalidateMode: AutovalidateMode.onUserInteraction,
       validator: widget.validator,
     );

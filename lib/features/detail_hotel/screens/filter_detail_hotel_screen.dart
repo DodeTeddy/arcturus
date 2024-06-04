@@ -99,7 +99,9 @@ class FilterDetailHotelScreen extends StatelessWidget {
                   ),
                 ),
           if (!data.isLoading && data.data.data!.market.isNotEmpty)
-            DropdownMarket(onChanged: (value) => context.read<FilterSectionProvider>().setCountry(value.toString())),
+            DropdownMarket(
+              onChanged: (value) => context.read<FilterSectionProvider>().setCountry(value.toString()),
+            ),
           if (!data.isLoading && data.data.data!.market.isNotEmpty)
             const Text(
               '* Guest ID Card = Market, ID Card is required upon check-in',
