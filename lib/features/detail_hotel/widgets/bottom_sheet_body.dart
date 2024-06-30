@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:provider/provider.dart';
@@ -8,6 +10,7 @@ import '../../../utils/html_parser.dart';
 import '../../../utils/responsive.dart';
 import '../../../widgets/custom_elavated_button.dart';
 import '../../booking_hotel/providers/booking_hotel_provider.dart';
+import '../../home/providers/filter_section_provider.dart';
 import '../models/room_params.dart';
 import '../providers/detail_hotel_provider.dart';
 import 'add_and_subtract_room.dart';
@@ -34,6 +37,7 @@ class _BottomSheetBodyState extends State<BottomSheetBody> {
   Widget build(BuildContext context) {
     var rate = context.watch<DetailHotelProvider>().data.data!.availableRoom[widget.indexRoomAvailable].room;
     var room = context.watch<BookingHotelProvider>().room;
+    var filter = context.watch<FilterSectionProvider>();
 
     return SingleChildScrollView(
       child: Padding(
@@ -52,9 +56,10 @@ class _BottomSheetBodyState extends State<BottomSheetBody> {
             ...List.generate(
               rate.length,
               (index) {
-                var data = rate[index];
+                var data = rate.where((value) => int.parse(value.minStay) == (filter.checkOut.day - filter.checkIn.day)).toList()[index];
                 double price = double.parse(data.roomPrice) + double.parse(data.markUpPrice);
 
+                log(data.roomAllow);
                 return Container(
                   margin: EdgeInsets.symmetric(
                     vertical: Responsive.height(context, 1),
